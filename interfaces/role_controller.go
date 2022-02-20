@@ -5,9 +5,9 @@ import (
 )
 
 type RoleController interface {
-	Create(c *fiber.Ctx)
-	Update(c *fiber.Ctx)
-	Delete(c *fiber.Ctx)
-	FindById(c *fiber.Ctx)
-	FindAll(c *fiber.Ctx)
+	createRole() fiber.Handler
+	updateRole() fiber.Handler
+	deleteRole() fiber.Handler
+	findByIdRole() fiber.Handler
+	findAllRole() fiber.Handler
 }

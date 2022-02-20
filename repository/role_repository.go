@@ -31,8 +31,8 @@ func (r *RoleRepository) FindById(roleid int) *domain.Role {
 	return role
 }
 
-func (r *RoleRepository) FindAll() *[]domain.Role {
-	var Role *[]domain.Role
+func (r *RoleRepository) FindAll() []domain.Role {
+	var Role []domain.Role
 	r.DB.Model(&domain.Role{}).Find(&Role)
 	return Role
 }
