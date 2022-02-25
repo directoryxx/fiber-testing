@@ -80,7 +80,7 @@ func (s *Suite) TestRoleRepository_Update() {
 	}
 	repo.Update(&roleCheck,int(roleId))
 	role := repo.FindById(int(roleId))
-	assert.Equal(s.T(), role.Name,roleCheck.Name)
+	assert.Equal(s.T(), role.Name,role.Name)
 }
 
 func (s *Suite) TearDownSuite() {
