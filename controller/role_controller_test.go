@@ -88,17 +88,16 @@ func (s *Suite) TestRoleController_findByIdRole() {
 	roleId := strconv.Itoa(role.ID)
 	reqGET := httptest.NewRequest("GET", "http://localhost:3000/role/"+roleId, nil)
 	resp, _ := s.app.Test(reqGET)
-	assert.Equal(s.T(), "404 Not Found", resp.Status)
+	assert.Equal(s.T(), "200 OK", resp.Status)
 
 	req = &request.RoleRequest{
 		Name: "coba",
 	}
 
-	role = s.RoleSvc.Create(req)
-	roleId = strconv.Itoa(role.ID)
+	roleId = strconv.Itoa(1000000)
 	reqGET = httptest.NewRequest("GET", "http://localhost:3000/role/"+roleId, nil)
 	resp, _ = s.app.Test(reqGET)
-	assert.Equal(s.T(), "200 OK", resp.Status)
+	assert.Equal(s.T(), "404 Not Found", resp.Status)
 }
 
 func (s *Suite) TestRoleController_updateRole() {

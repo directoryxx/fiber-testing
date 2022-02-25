@@ -30,6 +30,7 @@ func (s *Suite) SetupSuite() {
 	dsn := config.GenerateDSNMySQL(true)
 	database,_ := infrastructure.OpenDBMysql(dsn)
 	s.DB = database
+	s.DB.Exec("DELETE FROM roles")
 }
 
 func (s *Suite) TestRoleRepository_Create() {

@@ -1,12 +1,19 @@
 mode: set
-rest-api/helper/error.go:3.31,4.16 1 1
-rest-api/helper/error.go:4.16,5.13 1 1
 rest-api/config/database.go:5.44,7.13 2 1
 rest-api/config/database.go:13.2,15.14 2 1
 rest-api/config/database.go:7.13,9.3 1 1
 rest-api/config/database.go:9.8,11.3 1 1
+rest-api/helper/error.go:3.31,4.16 1 1
+rest-api/helper/error.go:4.16,5.13 1 1
+rest-api/infrastructure/redis.go:7.33,15.2 2 1
 rest-api/infrastructure/mysql.go:10.54,17.2 4 1
 rest-api/infrastructure/mysql.go:19.32,22.2 2 1
+rest-api/repository/role_repository.go:12.53,16.2 1 1
+rest-api/repository/role_repository.go:18.65,21.2 2 1
+rest-api/repository/role_repository.go:23.77,26.2 2 1
+rest-api/repository/role_repository.go:28.60,32.2 3 1
+rest-api/repository/role_repository.go:34.50,38.2 3 1
+rest-api/repository/role_repository.go:40.50,43.2 2 1
 rest-api/service/role_service.go:14.71,18.2 1 1
 rest-api/service/role_service.go:20.82,31.2 4 1
 rest-api/service/role_service.go:33.96,44.2 4 1
@@ -15,12 +22,6 @@ rest-api/service/role_service.go:55.59,58.28 3 1
 rest-api/service/role_service.go:61.2,61.23 1 1
 rest-api/service/role_service.go:58.28,60.3 1 1
 rest-api/service/role_service.go:64.49,67.2 2 1
-rest-api/repository/role_repository.go:12.53,16.2 1 1
-rest-api/repository/role_repository.go:18.65,21.2 2 1
-rest-api/repository/role_repository.go:23.77,26.2 2 1
-rest-api/repository/role_repository.go:28.60,32.2 3 1
-rest-api/repository/role_repository.go:34.50,38.2 3 1
-rest-api/repository/role_repository.go:40.50,43.2 2 1
 rest-api/controller/role_controller.go:17.66,21.2 1 1
 rest-api/controller/role_controller.go:23.56,30.2 6 1
 rest-api/controller/role_controller.go:32.53,33.34 1 1
