@@ -16,17 +16,3 @@ type User struct {
 	UpdatedAt 	time.Time
 	DeletedAt 	gorm.DeletedAt `gorm:"index"`
 }
-
-type UserRequest struct {
-	Name string
-	Username string
-	Password string
-	RoleId int
-}
-
-type UserResponse struct {
-	ID int
-	Name string
-	Username string
-	RoleId int
-}
