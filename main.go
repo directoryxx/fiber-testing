@@ -30,7 +30,7 @@ func main() {
 	repoRole := repository.NewRoleRepository(database)
 	svcRole := service.NewRoleService(repoRole)
 	role := controller.NewRoleController(svcRole)
-	role.RoleRouter(root,svcRole)
+	role.RoleRouter(root)
 
 	app.Listen(":3000")
 }

@@ -37,7 +37,7 @@ func (svc *RoleService) Update(roleReq *request.RoleRequest,roleId int) *respons
 
 	roleUpdated := svc.RoleRepository.Update(roleUpdate, roleId)
 	response := &response.RoleResponse{
-		ID: int(roleUpdated.ID),
+		ID: roleId,
 		Name: roleUpdated.Name,
 	}
 	return response

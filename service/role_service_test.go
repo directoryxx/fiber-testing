@@ -58,7 +58,12 @@ func (s *Suite) TestRoleService_Delete() {
 }
 
 func (s *Suite) TestRoleService_GetAll() {
+	requestRole := &request.RoleRequest{
+		Name: "coba",
+	}
 	roleSvc := NewRoleService(s.RoleRepo)
+	create := roleSvc.Create(requestRole)
+	assert.NotNil(s.T(),create.ID)
 	getAll := roleSvc.GetAll()
 	assert.NotNil(s.T(), getAll)
 }
@@ -68,7 +73,7 @@ func (s *Suite) TestRoleService_GetById() {
 	s.DB.Model(&domain.Role{}).Last(roleLast)
 	roleSvc := NewRoleService(s.RoleRepo)
 	role := roleSvc.GetById(int(roleLast.ID))
-	assert.Equal(s.T(), role.ID,roleLast.ID)
+	assert.Equal(s.T(), int(role.ID),int(roleLast.ID))
 }
 
 func (s *Suite) TestRoleService_Update() {
