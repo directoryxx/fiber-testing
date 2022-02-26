@@ -14,7 +14,7 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-          MYSQL_DATABASE: test_database
+          MYSQL_DATABASE: test_database-test
           MYSQL_HOST: 127.0.0.1
           MYSQL_USER: admin
           MYSQL_PASSWORD: rootpass
