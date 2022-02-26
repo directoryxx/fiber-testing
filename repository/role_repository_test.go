@@ -10,7 +10,6 @@ import (
 	"path"
 	"rest-api/config"
 	"rest-api/domain"
-	"rest-api/helper"
 	"rest-api/infrastructure"
 	"testing"
 )
@@ -26,7 +25,8 @@ func TestInit(t *testing.T) {
 
 func (s *Suite) SetupSuite() {
 	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/rest-api/.env")
-	helper.PanicIfError(errLoadEnv)
+	//helper.PanicIfError(errLoadEnv)
+	config.GetConfiguration(errLoadEnv)
 	dsn := config.GenerateDSNMySQL(true)
 	database,_ := infrastructure.OpenDBMysql(dsn)
 	s.DB = database

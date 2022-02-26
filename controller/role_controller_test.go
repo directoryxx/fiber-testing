@@ -3,17 +3,18 @@ package controller
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"gorm.io/gorm"
+	"io"
 	"net/http/httptest"
 	"os"
 	"path"
 	"rest-api/api/rest/request"
 	"rest-api/config"
-	"rest-api/helper"
 	"rest-api/infrastructure"
 	"rest-api/repository"
 	"rest-api/service"
@@ -35,7 +36,8 @@ func TestInit(t *testing.T) {
 
 func (s *Suite) SetupSuite() {
 	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/rest-api/.env")
-	helper.PanicIfError(errLoadEnv)
+	//helper.PanicIfError(errLoadEnv)
+	config.GetConfiguration(errLoadEnv)
 	dsn := config.GenerateDSNMySQL(true)
 	database,_ := infrastructure.OpenDBMysql(dsn)
 	s.RoleRepo = repository.NewRoleRepository(database)
@@ -88,6 +90,13 @@ func (s *Suite) TestRoleController_findByIdRole() {
 	roleId := strconv.Itoa(role.ID)
 	reqGET := httptest.NewRequest("GET", "http://localhost:3000/role/"+roleId, nil)
 	resp, _ := s.app.Test(reqGET)
+	defer resp.Body.Close()
+
+	b, err := io.ReadAll(resp.Body)
+	// b, err := ioutil.ReadAll(resp.Body)  Go.1.15 and earlier
+	assert.NoError(s.T(), err)
+	fmt.Println("test")
+	fmt.Println(string(b))
 	assert.Equal(s.T(), "200 OK", resp.Status)
 
 	req = &request.RoleRequest{

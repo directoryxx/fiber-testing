@@ -15,23 +15,30 @@ func NewUserRepository(db *gorm.DB) *UserRepository {
 	}
 }
 
-func (r *UserRepository) Create(role *domain.User) *domain.User {
-	panic("implement me")
+func (r *UserRepository) Create(user *domain.User) *domain.User {
+	r.DB.Create(&user)
+	return user
 }
 
-func (r *UserRepository) Update(role *domain.User, userid int) *domain.User {
-	panic("implement me")
+func (r *UserRepository) Update(user *domain.User, userid int) *domain.User {
+	r.DB.Model(user).Where("id = ?", userid).Updates(user)
+	return user
 }
 
-func (r *UserRepository) FindById(roleid int) *domain.User {
-	panic("implement me")
+func (r *UserRepository) FindById(userid int) *domain.User {
+	user := &domain.User{}
+	r.DB.Model(&domain.User{}).Where("id = ?", userid).First(user)
+	return user
 }
 
 func (r *UserRepository) FindAll() *[]domain.User {
-	panic("implement me")
+	var User []domain.User
+	r.DB.Model(&domain.User{}).Find(&User)
+	return &User
 }
 
-func (r *UserRepository) Delete(roleid int) bool {
-	panic("implement me")
+func (r *UserRepository) Delete(userid int) bool {
+	r.DB.Delete(&domain.User{}, userid)
+	return true
 }
 

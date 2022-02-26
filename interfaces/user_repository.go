@@ -3,9 +3,9 @@ package interfaces
 import "rest-api/domain"
 
 type UserRepository interface {
-	Create(role *domain.User) *domain.User
-	Update(role *domain.User, userid int) *domain.User
-	FindById(roleid int) *domain.User
+	Create(user *domain.User) *domain.User
+	Update(user *domain.User, userid int) *domain.User
+	FindById(userid int) *domain.User
 	FindAll() *[]domain.User
-	Delete(roleid int) bool
+	Delete(userid int) bool
 }
