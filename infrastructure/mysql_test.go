@@ -1,12 +1,19 @@
 package infrastructure
 
 import (
+	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
+	"os"
+	"path"
+	"rest-api/config"
 	"testing"
 )
 
 func TestOpenDB(t *testing.T) {
-	dsn := "root:passworddev2020@tcp(127.0.0.1:3306)/rest-api-test?charset=utf8mb4&parseTime=True"
+	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/rest-api/.env")
+	//helper.PanicIfError(errLoadEnv)
+	config.GetConfiguration(errLoadEnv)
+	dsn := config.GenerateDSNMySQL(true)
 	db,err := OpenDBMysql(dsn)
 	if assert.NoError(t, err) {
 		assert.NotNil(t, db)
