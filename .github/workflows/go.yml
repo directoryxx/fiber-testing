@@ -23,6 +23,13 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
+    - name: print secrets
+      run: |
+          echo $ENV >> .env
+          cat .env
+      shell: bash
+      env:
+        ENV : ${{secrets.ENV}}
     - uses: actions/checkout@v2
 
     - name: Set up Go
