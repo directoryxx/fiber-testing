@@ -1,17 +1,20 @@
 package repository
 
 import (
+	"github.com/go-redis/redis/v8"
 	"gorm.io/gorm"
 	"rest-api/domain"
 )
 
 type UserRepository struct{
 	DB *gorm.DB
+	Redis *redis.Client
 }
 
-func NewUserRepository(db *gorm.DB) *UserRepository {
+func NewUserRepository(db *gorm.DB,redis *redis.Client) *UserRepository {
 	return &UserRepository{
 		DB: db,
+		Redis: redis,
 	}
 }
 
