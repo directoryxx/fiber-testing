@@ -30,29 +30,40 @@ func (s *SuiteUser) SetupSuiteUser() {
 	dsn := config.GenerateDSNMySQL(true)
 	database,_ := infrastructure.OpenDBMysql(dsn)
 	s.DB = database
+	s.DB.Exec("DELETE FROM users")
 	s.DB.Exec("DELETE FROM roles")
 }
 
-func (s *SuiteUser) TestNewUserRepository(t *testing.T) {
+func (s *SuiteUser) TestUserRepository_Create() {
+	//role := &domain.Role{
+	//	Name: "Admin",
+	//}
+	//roleRepo := NewRoleRepository(s.DB)
+	//roleRepo.Create(role)
+	//assert.NotNil(s.T(), role.ID)
+	//user := &domain.User{
+	//	Name: "Admin",
+	//	Username: "Admin",
+	//	Password: "Password",
+	//	RoleID: role.ID,
+	//}
+	//userRepo := NewUserRepository(s.DB,s.Redis)
+	//userCreate := userRepo.Create(user)
+	//assert.NotNil(s.T(), userCreate.ID)
+}
+
+func (s *SuiteUser) TestUserRepository_Delete() {
 
 }
 
-func (s *SuiteUser) TestUserRepository_Create(t *testing.T) {
+func (s *SuiteUser) TestUserRepository_FindAll() {
 
 }
 
-func (s *SuiteUser) TestUserRepository_Delete(t *testing.T) {
+func (s *SuiteUser) TestUserRepository_FindById() {
 
 }
 
-func (s *SuiteUser) TestUserRepository_FindAll(t *testing.T) {
-
-}
-
-func (s *SuiteUser) TestUserRepository_FindById(t *testing.T) {
-
-}
-
-func (s *SuiteUser) TestUserRepository_Update(t *testing.T) {
+func (s *SuiteUser) TestUserRepository_Update() {
 
 }
