@@ -18,8 +18,8 @@ rest-api/service/role_service.go:55.59,58.28 3 1
 rest-api/service/role_service.go:61.2,61.23 1 1
 rest-api/service/role_service.go:58.28,60.3 1 1
 rest-api/service/role_service.go:64.49,67.2 2 1
-rest-api/repository/user_repository.go:14.73,19.2 1 0
-rest-api/repository/user_repository.go:21.65,24.2 2 0
+rest-api/repository/user_repository.go:14.73,19.2 1 1
+rest-api/repository/user_repository.go:21.65,24.2 2 1
 rest-api/repository/user_repository.go:26.77,29.2 2 0
 rest-api/repository/user_repository.go:31.60,35.2 3 0
 rest-api/repository/user_repository.go:37.51,41.2 3 0

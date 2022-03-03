@@ -59,6 +59,7 @@ func (s *Suite) TestRoleController_createRole() {
 	req.Header.Set("Content-type", "application/json")
 	resp, _ := s.app.Test(req)
 	assert.Equal(s.T(), "200 OK", resp.Status)
+	defer resp.Body.Close()
 }
 
 func (s *Suite) TestRoleController_deleteRole() {
@@ -71,7 +72,7 @@ func (s *Suite) TestRoleController_deleteRole() {
 	reqDelete := httptest.NewRequest("DELETE", "http://localhost:3000/role/"+roleId, nil)
 	resp, _ := s.app.Test(reqDelete)
 	assert.Equal(s.T(), "200 OK", resp.Status)
-
+	defer resp.Body.Close()
 
 }
 
@@ -79,6 +80,7 @@ func (s *Suite) TestRoleController_findAllRole() {
 	req := httptest.NewRequest("GET", "http://localhost:3000/role", nil)
 	resp, _ := s.app.Test(req)
 	assert.Equal(s.T(), "200 OK", resp.Status)
+	defer resp.Body.Close()
 }
 
 func (s *Suite) TestRoleController_findByIdRole() {
@@ -125,4 +127,5 @@ func (s *Suite) TestRoleController_updateRole() {
 	reqGET.Header.Set("Content-type","application/json")
 	resp, _ := s.app.Test(reqGET)
 	assert.Equal(s.T(), "200 OK", resp.Status)
+	defer resp.Body.Close()
 }
