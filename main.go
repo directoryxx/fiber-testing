@@ -13,6 +13,11 @@ import (
 )
 
 func main() {
+	app := SetupInit()
+	app.Listen(":3000")
+}
+
+func SetupInit() *fiber.App {
 	errLoadEnv := godotenv.Load()
 	helper.PanicIfError(errLoadEnv)
 
@@ -22,12 +27,7 @@ func main() {
 	helper.PanicIfError(err)
 	fmt.Println(database)
 
-
 	app := fiber.New()
-
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
-	})
 
 	root := app.Group("/api")
 
@@ -37,14 +37,5 @@ func main() {
 	role := controller.NewRoleController(svcRole,root)
 	role.RoleRouter()
 
-	// User
-	//userRepo := repository.NewUserRepository(database,redis)
-	//userRepo.Create(&domain.User{
-	//	Name: "Admin",
-	//	Username: "admin",
-	//	Password: "admin",
-	//	RoleID: uint(1),
-	//})
-
-	app.Listen(":3000")
+	return app
 }
