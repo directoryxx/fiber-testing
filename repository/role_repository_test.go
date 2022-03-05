@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
@@ -66,7 +65,6 @@ func (s *Suite) TestRoleRepository_FindById() {
 	roleId := roleLast.ID
 	repo := NewRoleRepository(s.DB)
 	role := repo.FindById(int(roleId))
-	fmt.Println(role)
 	assert.NotNil(s.T(), role.ID)
 	assert.Equal(s.T(), int(roleId),int(role.ID))
 }
@@ -85,5 +83,7 @@ func (s *Suite) TestRoleRepository_Update() {
 }
 
 func (s *Suite) TearDownSuite() {
-	s.DB.Exec("DELETE FROM roles")
+	s.DB.Exec("SET FOREIGN_KEY_CHECKS = 0")
+	s.DB.Exec("TRUNCATE roles")
+	s.DB.Exec("SET FOREIGN_KEY_CHECKS = 1")
 }
