@@ -17,13 +17,12 @@ func TestGenerateDSNMySQL(t *testing.T) {
 	os.Setenv("DB_PASSWORD",dbPassword)
 	os.Setenv("DB_HOST",dbHost)
 	os.Setenv("DB_PORT",dbPort)
-	os.Setenv("TESTING","true")
 	dsn := GenerateDSNMySQL()
-	manualGenerate := dbUsername+ ":"+ dbPassword+"@tcp("+dbHost+":"+dbPort+")/"+dbName+"?charset=utf8mb4&parseTime=True"
+	manualGenerate := dbUsername+ ":"+ dbPassword+"@tcp("+dbHost+":"+dbPort+")/"+dbName+"-test"+"?charset=utf8mb4&parseTime=True"
 	assert.Equal(t,dsn,manualGenerate)
-	os.Setenv("TESTING","false")
+	os.Setenv("TESTING","")
 	dsn = GenerateDSNMySQL()
-	manualGenerate = dbUsername+ ":"+ dbPassword+"@tcp("+dbHost+":"+dbPort+")/"+dbName+"-test"+"?charset=utf8mb4&parseTime=True"
+	manualGenerate = dbUsername+ ":"+ dbPassword+"@tcp("+dbHost+":"+dbPort+")/"+dbName+"?charset=utf8mb4&parseTime=True"
 	assert.Equal(t,dsn,manualGenerate)
 
 }
