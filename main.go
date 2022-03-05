@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
+	"os"
 	"rest-api/config"
 	"rest-api/controller"
 	"rest-api/helper"
@@ -15,6 +16,10 @@ import (
 func main() {
 	app := SetupInit()
 	app.Listen(":3000")
+
+	if os.Getenv("TESTING") == "true" {
+		app.Shutdown()
+	}
 }
 
 func SetupInit() *fiber.App {
