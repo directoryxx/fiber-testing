@@ -19,7 +19,7 @@ func main() {
 
 func SetupInit() *fiber.App {
 	errLoadEnv := godotenv.Load()
-	helper.PanicIfError(errLoadEnv)
+	config.GetConfiguration(errLoadEnv)
 
 	dsn := config.GenerateDSNMySQL(false)
 	database,err := infrastructure.OpenDBMysql(dsn)
