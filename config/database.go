@@ -2,9 +2,10 @@ package config
 
 import "os"
 
-func GenerateDSNMySQL(testing bool) string {
+func GenerateDSNMySQL() string {
 	dbName := ""
-	if testing {
+	testing := os.Getenv("TESTING")
+	if testing == "true" {
 		dbName = os.Getenv("DB_NAME")+"-test"
 	} else {
 		dbName = os.Getenv("DB_NAME")
