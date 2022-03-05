@@ -18,7 +18,7 @@ func main() {
 
 	dsn := config.GenerateDSNMySQL(false)
 	database,err := infrastructure.OpenDBMysql(dsn)
-	redis := infrastructure.OpenRedis()
+	//redis := infrastructure.OpenRedis()
 	helper.PanicIfError(err)
 	fmt.Println(database)
 
@@ -34,11 +34,17 @@ func main() {
 	// Role
 	repoRole := repository.NewRoleRepository(database)
 	svcRole := service.NewRoleService(repoRole)
-	role := controller.NewRoleController(svcRole)
-	role.RoleRouter(root)
+	role := controller.NewRoleController(svcRole,root)
+	role.RoleRouter()
 
 	// User
-	repository.NewUserRepository(database,redis)
+	//userRepo := repository.NewUserRepository(database,redis)
+	//userRepo.Create(&domain.User{
+	//	Name: "Admin",
+	//	Username: "admin",
+	//	Password: "admin",
+	//	RoleID: uint(1),
+	//})
 
 	app.Listen(":3000")
 }

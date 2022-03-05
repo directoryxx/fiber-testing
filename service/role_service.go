@@ -7,17 +7,25 @@ import (
 	"rest-api/repository"
 )
 
-type RoleService struct{
+type RoleService interface {
+	Create(role *request.RoleRequest) *response.RoleResponse
+	Update(roleReq *request.RoleRequest,roleId int) *response.RoleResponse
+	GetById(roleId int) *response.RoleResponse
+	GetAll() *[]response.RoleResponse
+	Delete(roleId int) bool
+}
+
+type RoleServiceImpl struct{
 	RoleRepository repository.RoleRepository
 }
 
-func NewRoleService(roleRepo *repository.RoleRepository) *RoleService {
-	return &RoleService{
-		RoleRepository: *roleRepo,
+func NewRoleService(roleRepo repository.RoleRepository) RoleService {
+	return &RoleServiceImpl{
+		RoleRepository: roleRepo,
 	}
 }
 
-func (svc *RoleService) Create(role *request.RoleRequest) *response.RoleResponse {
+func (svc *RoleServiceImpl) Create(role *request.RoleRequest) *response.RoleResponse {
 	roleCreate := &domain.Role{
 		Name: role.Name,
 	}
@@ -30,7 +38,7 @@ func (svc *RoleService) Create(role *request.RoleRequest) *response.RoleResponse
 	return response
 }
 
-func (svc *RoleService) Update(roleReq *request.RoleRequest,roleId int) *response.RoleResponse {
+func (svc *RoleServiceImpl) Update(roleReq *request.RoleRequest,roleId int) *response.RoleResponse {
 	roleUpdate := &domain.Role{
 		Name: roleReq.Name,
 	}
@@ -43,7 +51,7 @@ func (svc *RoleService) Update(roleReq *request.RoleRequest,roleId int) *respons
 	return response
 }
 
-func (svc *RoleService) GetById(roleId int) *response.RoleResponse {
+func (svc *RoleServiceImpl) GetById(roleId int) *response.RoleResponse {
 	role := svc.RoleRepository.FindById(roleId)
 	response := &response.RoleResponse{
 		ID: int(role.ID),
@@ -52,7 +60,7 @@ func (svc *RoleService) GetById(roleId int) *response.RoleResponse {
 	return response
 }
 
-func (svc *RoleService) GetAll() *[]response.RoleResponse {
+func (svc *RoleServiceImpl) GetAll() *[]response.RoleResponse {
 	role := svc.RoleRepository.FindAll()
 	var roleResponses []response.RoleResponse
 	for _, role := range role {
@@ -61,7 +69,7 @@ func (svc *RoleService) GetAll() *[]response.RoleResponse {
 	return &roleResponses
 }
 
-func (svc *RoleService) Delete(roleId int) bool {
+func (svc *RoleServiceImpl) Delete(roleId int) bool {
 	role := svc.RoleRepository.Delete(roleId)
 	return role
 }

@@ -24,8 +24,8 @@ import (
 
 type Suite struct {
 	suite.Suite
-	RoleRepo   *repository.RoleRepository
-	RoleSvc   *service.RoleService
+	RoleRepo   repository.RoleRepository
+	RoleSvc   service.RoleService
 	DB *gorm.DB
 	app *fiber.App
 }
@@ -45,11 +45,9 @@ func (s *Suite) SetupSuite() {
 	s.DB = database
 	s.app = fiber.New()
 	s.app.Group("/api")
-	role := NewRoleController(s.RoleSvc)
-	role.RoleRouter(s.app)
+	role := NewRoleController(s.RoleSvc,s.app)
+	role.RoleRouter()
 }
-
-
 
 func (s *Suite) TestRoleController_createRole() {
 	values := map[string]string{"name": "test"}
@@ -60,6 +58,7 @@ func (s *Suite) TestRoleController_createRole() {
 	resp, _ := s.app.Test(req)
 	assert.Equal(s.T(), "200 OK", resp.Status)
 	defer resp.Body.Close()
+	defer req.Body.Close()
 }
 
 func (s *Suite) TestRoleController_deleteRole() {
@@ -73,14 +72,13 @@ func (s *Suite) TestRoleController_deleteRole() {
 	resp, _ := s.app.Test(reqDelete)
 	assert.Equal(s.T(), "200 OK", resp.Status)
 	defer resp.Body.Close()
-
+	defer reqDelete.Body.Close()
 }
 
 func (s *Suite) TestRoleController_findAllRole() {
 	req := httptest.NewRequest("GET", "http://localhost:3000/role", nil)
 	resp, _ := s.app.Test(req)
 	assert.Equal(s.T(), "200 OK", resp.Status)
-	defer resp.Body.Close()
 }
 
 func (s *Suite) TestRoleController_findByIdRole() {
@@ -92,7 +90,6 @@ func (s *Suite) TestRoleController_findByIdRole() {
 	roleId := strconv.Itoa(role.ID)
 	reqGET := httptest.NewRequest("GET", "http://localhost:3000/role/"+roleId, nil)
 	resp, _ := s.app.Test(reqGET)
-	defer resp.Body.Close()
 
 	b, err := io.ReadAll(resp.Body)
 	// b, err := ioutil.ReadAll(resp.Body)  Go.1.15 and earlier
@@ -100,6 +97,7 @@ func (s *Suite) TestRoleController_findByIdRole() {
 	fmt.Println("test")
 	fmt.Println(string(b))
 	assert.Equal(s.T(), "200 OK", resp.Status)
+	defer resp.Body.Close()
 
 	req = &request.RoleRequest{
 		Name: "coba",
@@ -109,6 +107,7 @@ func (s *Suite) TestRoleController_findByIdRole() {
 	reqGET = httptest.NewRequest("GET", "http://localhost:3000/role/"+roleId, nil)
 	resp, _ = s.app.Test(reqGET)
 	assert.Equal(s.T(), "404 Not Found", resp.Status)
+	defer resp.Body.Close()
 }
 
 func (s *Suite) TestRoleController_updateRole() {
@@ -128,4 +127,8 @@ func (s *Suite) TestRoleController_updateRole() {
 	resp, _ := s.app.Test(reqGET)
 	assert.Equal(s.T(), "200 OK", resp.Status)
 	defer resp.Body.Close()
+}
+
+func (s *Suite) TearDownSuite() {
+	s.app.Shutdown()
 }

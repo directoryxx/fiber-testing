@@ -17,7 +17,7 @@ import (
 
 type Suite struct {
 	suite.Suite
-	RoleRepo   *repository.RoleRepository
+	RoleRepo   repository.RoleRepository
 	DB *gorm.DB
 }
 

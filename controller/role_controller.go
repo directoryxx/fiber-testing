@@ -9,19 +9,30 @@ import (
 	"rest-api/service"
 )
 
-type RoleController struct{
-	Ctx *fiber.Ctx
-	Service *service.RoleService
+type RoleController interface {
+	createRole() fiber.Handler
+	updateRole() fiber.Handler
+	deleteRole() fiber.Handler
+	findByIdRole() fiber.Handler
+	findAllRole() fiber.Handler
+	RoleRouter()
 }
 
-func NewRoleController(svc *service.RoleService) *RoleController {
-	return &RoleController{
+type RoleControllerImpl struct{
+	Ctx *fiber.Ctx
+	Service service.RoleService
+	Router fiber.Router
+}
+
+func NewRoleController(svc service.RoleService, app fiber.Router) RoleController {
+	return &RoleControllerImpl{
 		Service: svc,
+		Router: app,
 	}
 }
 
-func (r *RoleController) RoleRouter(app fiber.Router)  {
-	group := app.Group("role")
+func (r *RoleControllerImpl) RoleRouter()  {
+	group := r.Router.Group("role")
 	group.Get("/", r.findAllRole())
 	group.Get("/:id", r.findByIdRole())
 	group.Put("/:id", r.updateRole())
@@ -29,7 +40,7 @@ func (r *RoleController) RoleRouter(app fiber.Router)  {
 	group.Post("/", r.createRole())
 }
 
-func (r *RoleController) createRole() fiber.Handler {
+func (r *RoleControllerImpl) createRole() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var role *request.RoleRequest
 		errRequest := c.BodyParser(&role)
@@ -44,7 +55,7 @@ func (r *RoleController) createRole() fiber.Handler {
 	}
 }
 
-func (r *RoleController) updateRole() fiber.Handler {
+func (r *RoleControllerImpl) updateRole() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id, err := c.ParamsInt("id")
 		helper.PanicIfError(err)
@@ -61,7 +72,7 @@ func (r *RoleController) updateRole() fiber.Handler {
 	}
 }
 
-func (r *RoleController) deleteRole() fiber.Handler {
+func (r *RoleControllerImpl) deleteRole() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id, err := c.ParamsInt("id")
 		helper.PanicIfError(err)
@@ -74,7 +85,7 @@ func (r *RoleController) deleteRole() fiber.Handler {
 	}
 }
 
-func (r *RoleController) findByIdRole() fiber.Handler {
+func (r *RoleControllerImpl) findByIdRole() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id, err := c.ParamsInt("id")
 		helper.PanicIfError(err)
@@ -95,7 +106,7 @@ func (r *RoleController) findByIdRole() fiber.Handler {
 	}
 }
 
-func (r *RoleController) findAllRole() fiber.Handler {
+func (r *RoleControllerImpl) findAllRole() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		roleAll := r.Service.GetAll()
 		return c.JSON(&response.DefaultSuccess{
