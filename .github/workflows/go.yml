@@ -57,9 +57,9 @@ jobs:
       run: go test -v $(go list ./... | grep -v /api/ | grep -v /domain | grep -v /interfaces) -coverprofile=coverage.txt -covermode=atomic
 
     - name: Upload coverage report
-        uses: codecov/codecov-action@v1.0.2
-        with:
-          token: '130efdb4-2ab4-440a-af70-c0f571b3baa5'
-          file: ./coverage.txt
-          flags: unittests
-          name: codecov-umbrella
+      uses: codecov/codecov-action@v1.0.2
+      with:
+        token: '130efdb4-2ab4-440a-af70-c0f571b3baa5'
+        file: ./coverage.txt
+        flags: unittests
+        name: codecov-umbrella
