@@ -38,7 +38,7 @@ func (s *Suite) SetupSuite() {
 	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/rest-api/.env")
 	//helper.PanicIfError(errLoadEnv)
 	config.GetConfiguration(errLoadEnv)
-	dsn := config.GenerateDSNMySQL(true)
+	dsn := config.GenerateDSNMySQL()
 	database,_ := infrastructure.OpenDBMysql(dsn)
 	s.RoleRepo = repository.NewRoleRepository(database)
 	s.RoleSvc = service.NewRoleService(s.RoleRepo)

@@ -21,7 +21,7 @@ func SetupInit() *fiber.App {
 	errLoadEnv := godotenv.Load()
 	config.GetConfiguration(errLoadEnv)
 
-	dsn := config.GenerateDSNMySQL(false)
+	dsn := config.GenerateDSNMySQL()
 	database,err := infrastructure.OpenDBMysql(dsn)
 	//redis := infrastructure.OpenRedis()
 	helper.PanicIfError(err)

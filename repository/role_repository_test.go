@@ -27,7 +27,7 @@ func (s *Suite) SetupSuite() {
 	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/rest-api/.env")
 	//helper.PanicIfError(errLoadEnv)
 	config.GetConfiguration(errLoadEnv)
-	dsn := config.GenerateDSNMySQL(true)
+	dsn := config.GenerateDSNMySQL()
 	database,_ := infrastructure.OpenDBMysql(dsn)
 	s.DB = database
 	s.DB.Exec("DELETE FROM roles")
