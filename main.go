@@ -1,3 +1,5 @@
+//+build !test
+
 package main
 
 import (
@@ -15,11 +17,11 @@ import (
 
 func main() {
 	app := SetupInit()
-	app.Listen(":3000")
-
-	if os.Getenv("TESTING") == "true" {
-		app.Shutdown()
+	if os.Getenv("TESTING") != "true" {
+		app.Listen(":3000") //excluded
 	}
+
+
 }
 
 func SetupInit() *fiber.App {
