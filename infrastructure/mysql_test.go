@@ -5,12 +5,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"os"
 	"path"
-	"rest-api/config"
+	"github.com/directoryxx/fiber-testing/config"
 	"testing"
 )
 
 func TestOpenDB(t *testing.T) {
-	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/rest-api/.env")
+	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/github.com/directoryxx/fiber-testing/.env")
 	//helper.PanicIfError(errLoadEnv)
 	config.GetConfiguration(errLoadEnv)
 	dsn := config.GenerateDSNMySQL()

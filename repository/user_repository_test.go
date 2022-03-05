@@ -1,16 +1,15 @@
 package repository
 
 import (
-	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"gorm.io/gorm"
 	"os"
 	"path"
-	"rest-api/config"
-	"rest-api/domain"
-	"rest-api/infrastructure"
+	"github.com/directoryxx/fiber-testing/config"
+	"github.com/directoryxx/fiber-testing/domain"
+	"github.com/directoryxx/fiber-testing/infrastructure"
 	"testing"
 )
 
@@ -24,12 +23,11 @@ func TestInitUser(t *testing.T) {
 }
 
 func (s *SuiteUser) SetupSuite() {
-	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/rest-api/.env")
+	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/github.com/directoryxx/fiber-testing/.env")
 	//helper.PanicIfError(errLoadEnv)
 	config.GetConfiguration(errLoadEnv)
 	dsn := config.GenerateDSNMySQL()
 	database,_ := infrastructure.OpenDBMysql(dsn)
-	fmt.Println(database)
 	s.DB = database
 
 }

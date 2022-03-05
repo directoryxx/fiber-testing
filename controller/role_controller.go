@@ -3,10 +3,10 @@ package controller
 import (
 	"github.com/gofiber/fiber/v2"
 	"net/http"
-	"rest-api/api/rest/request"
-	"rest-api/api/rest/response"
-	"rest-api/helper"
-	"rest-api/service"
+	"github.com/directoryxx/fiber-testing/api/rest/request"
+	"github.com/directoryxx/fiber-testing/api/rest/response"
+	"github.com/directoryxx/fiber-testing/helper"
+	"github.com/directoryxx/fiber-testing/service"
 )
 
 type RoleController interface {

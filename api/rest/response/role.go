@@ -1,6 +1,6 @@
 package response
 
-import "rest-api/domain"
+import "github.com/directoryxx/fiber-testing/domain"
 
 type RoleResponse struct {
 	ID   int    `json:"id"`

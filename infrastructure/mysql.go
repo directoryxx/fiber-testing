@@ -3,8 +3,8 @@ package infrastructure
 import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"rest-api/domain"
-	"rest-api/helper"
+	"github.com/directoryxx/fiber-testing/domain"
+	"github.com/directoryxx/fiber-testing/helper"
 )
 
 func OpenDBMysql(dsn string) (db *gorm.DB,err error) {

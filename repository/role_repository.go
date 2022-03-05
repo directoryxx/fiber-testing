@@ -2,7 +2,7 @@ package repository
 
 import (
 	"gorm.io/gorm"
-	"rest-api/domain"
+	"github.com/directoryxx/fiber-testing/domain"
 )
 
 type RoleRepository interface {

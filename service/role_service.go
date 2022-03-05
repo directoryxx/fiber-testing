@@ -1,10 +1,10 @@
 package service
 
 import (
-	"rest-api/api/rest/request"
-	"rest-api/api/rest/response"
-	"rest-api/domain"
-	"rest-api/repository"
+	"github.com/directoryxx/fiber-testing/api/rest/request"
+	"github.com/directoryxx/fiber-testing/api/rest/response"
+	"github.com/directoryxx/fiber-testing/domain"
+	"github.com/directoryxx/fiber-testing/repository"
 )
 
 type RoleService interface {

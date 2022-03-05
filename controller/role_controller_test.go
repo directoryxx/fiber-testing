@@ -13,11 +13,11 @@ import (
 	"net/http/httptest"
 	"os"
 	"path"
-	"rest-api/api/rest/request"
-	"rest-api/config"
-	"rest-api/infrastructure"
-	"rest-api/repository"
-	"rest-api/service"
+	"github.com/directoryxx/fiber-testing/api/rest/request"
+	"github.com/directoryxx/fiber-testing/config"
+	"github.com/directoryxx/fiber-testing/infrastructure"
+	"github.com/directoryxx/fiber-testing/repository"
+	"github.com/directoryxx/fiber-testing/service"
 	"strconv"
 	"testing"
 )
@@ -35,7 +35,7 @@ func TestInit(t *testing.T) {
 }
 
 func (s *Suite) SetupSuite() {
-	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/rest-api/.env")
+	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/github.com/directoryxx/fiber-testing/.env")
 	//helper.PanicIfError(errLoadEnv)
 	config.GetConfiguration(errLoadEnv)
 	dsn := config.GenerateDSNMySQL()

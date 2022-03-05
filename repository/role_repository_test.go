@@ -7,9 +7,9 @@ import (
 	"gorm.io/gorm"
 	"os"
 	"path"
-	"rest-api/config"
-	"rest-api/domain"
-	"rest-api/infrastructure"
+	"github.com/directoryxx/fiber-testing/config"
+	"github.com/directoryxx/fiber-testing/domain"
+	"github.com/directoryxx/fiber-testing/infrastructure"
 	"testing"
 )
 
@@ -23,7 +23,7 @@ func TestInit(t *testing.T) {
 }
 
 func (s *Suite) SetupSuite() {
-	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/rest-api/.env")
+	errLoadEnv := godotenv.Load(path.Join(os.Getenv("HOME")) + "/goproject/github.com/directoryxx/fiber-testing/.env")
 	//helper.PanicIfError(errLoadEnv)
 	config.GetConfiguration(errLoadEnv)
 	dsn := config.GenerateDSNMySQL()
@@ -83,7 +83,5 @@ func (s *Suite) TestRoleRepository_Update() {
 }
 
 func (s *Suite) TearDownSuite() {
-	s.DB.Exec("SET FOREIGN_KEY_CHECKS = 0")
-	s.DB.Exec("TRUNCATE roles")
-	s.DB.Exec("SET FOREIGN_KEY_CHECKS = 1")
+	s.DB.Exec("SET FOREIGN_KEY_CHECKS = 0;TRUNCATE roles;SET FOREIGN_KEY_CHECKS = 1;")
 }
